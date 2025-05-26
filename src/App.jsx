@@ -4,6 +4,9 @@ import './components/todo/todo.css'
 import ReactLogo from './assets/react.svg'
 import { useState } from 'react'
 const App = () => {
+  const getRandomArbitrary=(min, max)=> {
+    return Math.random() * (max - min) + min;
+}
   const [todoList, setTodoList] = useState([{
     id: 1,
     name: "Duong",
@@ -24,7 +27,13 @@ const App = () => {
     country: "Viet Nam"
   }
   const addNewTodo = (name) => {
-    alert(`call me ${name}`)
+    const newTodo={
+      id: getRandomArbitrary(1, 100000000),
+      name: name,
+     
+    }
+    setTodoList([...todoList, newTodo])
+
   }
 
   return (
