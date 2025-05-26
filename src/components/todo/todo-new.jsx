@@ -1,21 +1,25 @@
+import { useState } from "react"
+
 const TodoNew = (props) => {
+    const [valueInput, setValueInput] = useState("Duong")
     const { addNewTodo } = props
     //  addNewTodo("WindStorm")
     const handleClick = () => {
-        alert("click me")
+        console.log("WindStorm", valueInput)
     }
-    const handleOnchange=(name)=>{
-        console.log("WindStorm",name)
+    const handleOnchange = (name) => {
+        setValueInput(name)
     }
     return (
         <div className='todo-new'>
-            <input type="text" 
-            onChange={(event)=>{handleOnchange(event.target.value)} }
+            <input type="text"
+                onChange={(event) => { handleOnchange(event.target.value) }}
             />
-            <button 
-            style={{cursor:"pointer"}}
-            onClick={handleClick}
+            <button
+                style={{ cursor: "pointer" }}
+                onClick={handleClick}
             >Add</button>
+            <div>My name is {valueInput}</div>
         </div>
     )
 
