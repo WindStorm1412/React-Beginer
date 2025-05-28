@@ -7,25 +7,8 @@ const App = () => {
   const getRandomArbitrary=(min, max)=> {
     return Math.random() * (max - min) + min;
 }
-  const [todoList, setTodoList] = useState([{
-    id: 1,
-    name: "Duong",
-    age: 22,
-    address: "Can Tho",
-    country: "Viet Nam"
-  }, {
-    id: 2,
-    name: "WindStorm",
-    age: 22,
-    address: "Can Tho",
-    country: "Viet Nam"
-  }])
-  const duongdz = "WindStorm"
-  const age = 22
-  const data = {
-    address: "Can Tho",
-    country: "Viet Nam"
-  }
+  const [todoList, setTodoList] = useState([ ])
+
   const addNewTodo = (name) => {
     const newTodo={
       id: getRandomArbitrary(1, 100000000),
@@ -43,9 +26,7 @@ const App = () => {
         addNewTodo={addNewTodo}
       />
       <TodoData
-        name={duongdz}
-        age={age}
-        data={data}
+  
         todoList={todoList}
 
       />
