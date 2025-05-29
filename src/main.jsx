@@ -1,10 +1,15 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
+import "./style/global.css"
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router";
+import LoginPage from './pages/login.jsx';
+import RegisterPage from './pages/register.jsx';
+import UsersPage from './pages/users.jsx';
+import ProductPage from './pages/products.jsx';
 let router = createBrowserRouter([
   {
     path: "/",
@@ -12,15 +17,19 @@ let router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <div>Login</div>
+    element: <LoginPage />
   },
   {
     path: "/register",
-    element: <div>register</div>
+    element: <RegisterPage />
   },
   {
     path: "/users",
-    element: <div>users</div>
+    element: <UsersPage/>
+  },
+  {
+    path: "/products",
+    element: <ProductPage/>
   }
 ]);
 createRoot(document.getElementById('root')).render(
