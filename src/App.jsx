@@ -3,6 +3,8 @@ import TodoNew from './components/todo/todo-new'
 import './components/todo/todo.css'
 import ReactLogo from './assets/react.svg'
 import { useState } from 'react'
+import HeaderPage from './components/layout/header'
+import Footer from './components/layout/footer'
 const App = () => {
   const getRandomArbitrary = (min, max) => {
     return Math.random() * (max - min) + min;
@@ -19,8 +21,8 @@ const App = () => {
 
   }
   const deleteTodo = (id) => {
-    const newTodo = todoList.filter((todo)=>{
-      return todo.id !=id
+    const newTodo = todoList.filter((todo) => {
+      return todo.id != id
 
     })
     setTodoList(newTodo)
@@ -28,6 +30,8 @@ const App = () => {
   }
 
   return (
+    <>
+    <HeaderPage/>
     <div className="todo-container">
       <div className="todo-title">Todo list</div>
       <TodoNew
@@ -47,6 +51,10 @@ const App = () => {
 
 
     </div>
+    <Footer/>
+    
+    </>
+
 
   )
 }
