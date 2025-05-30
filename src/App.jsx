@@ -5,6 +5,8 @@ import ReactLogo from './assets/react.svg'
 import { useState } from 'react'
 import HeaderPage from './components/layout/header'
 import Footer from './components/layout/footer'
+import {Outlet} from "react-router-dom"
+
 const App = () => {
   const getRandomArbitrary = (min, max) => {
     return Math.random() * (max - min) + min;
@@ -51,6 +53,7 @@ const App = () => {
 
 
     </div>
+   <Outlet/>
     <Footer/>
     
     </>

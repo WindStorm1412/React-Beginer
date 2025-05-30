@@ -13,7 +13,17 @@ import ProductPage from './pages/products.jsx';
 let router = createBrowserRouter([
   {
     path: "/",
-    element: <App />
+    element: <App />,
+    children:[
+      {
+        path: "/users",
+        element: <UsersPage />
+      },
+      {
+        path: "/products",
+        element: <ProductPage />
+      }
+    ]
   },
   {
     path: "/login",
@@ -23,14 +33,7 @@ let router = createBrowserRouter([
     path: "/register",
     element: <RegisterPage />
   },
-  {
-    path: "/users",
-    element: <UsersPage/>
-  },
-  {
-    path: "/products",
-    element: <ProductPage/>
-  }
+
 ]);
 createRoot(document.getElementById('root')).render(
   <StrictMode>
