@@ -1,13 +1,13 @@
-import { Link } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 import "../layout/header.css"
 const HeaderPage = () => {
     return (
         <>
             <ul>
-                <li><Link class="active" to="/">Home</Link></li>
-                <li><Link to="/users">User</Link></li>
-                <li><Link to="/products">Product</Link></li>
-                
+                <li><NavLink to="/">Home</NavLink></li>
+                <li><NavLink to="/users">User</NavLink></li>
+                <li><NavLink to="/products">Product</NavLink></li>
+
             </ul>
         </>
     )
