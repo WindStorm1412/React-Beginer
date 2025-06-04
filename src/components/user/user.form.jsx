@@ -2,14 +2,14 @@ import { Button, Flex, Input, notification, Modal } from 'antd';
 import "./user.css"
 import { useState } from 'react';
 import { createUser } from '../../services/api.services';
-const UserForm = () => {
+const UserForm = (props) => {
     const [fullName, setFullName] = useState("hello")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [phone, setPhone] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const { loadUser } = props
     const handleSubmitBtn = async () => {
-
         const result = await createUser(fullName, email, password, phone)
 
         if (result.data) {
@@ -17,7 +17,8 @@ const UserForm = () => {
                 message: "Create user",
                 description: "Tạo user thành công"
             })
-            setIsModalOpen(false)
+            ClearData()
+            await loadUser()
         }
 
         else if (result.error) {
@@ -26,6 +27,13 @@ const UserForm = () => {
             })
         }
 
+    }
+    const ClearData = () => {
+        setIsModalOpen(false)
+        setFullName("")
+        setEmail("")
+        setPassword("")
+        setPhone("")
     }
 
     return (
@@ -44,7 +52,7 @@ const UserForm = () => {
                     closable={{ 'aria-label': 'Custom Close Button' }}
                     open={isModalOpen}
                     onOk={() => { handleSubmitBtn() }}
-                    onCancel={() => { setIsModalOpen(false) }}
+                    onCancel={() => { ClearData() }}
                     maskClosable={false}
                     okText={"Create"}
                 > <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
@@ -80,8 +88,6 @@ const UserForm = () => {
                     </div>
                 </Modal>
             </div>
-
-
         </>)
 }
 export default UserForm
