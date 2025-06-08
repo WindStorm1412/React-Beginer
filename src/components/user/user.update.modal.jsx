@@ -1,23 +1,30 @@
 import { Input, Modal, notification } from "antd"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { data } from "react-router-dom"
+import { updateUserAPI } from "../../services/api.services"
 
 const UpdateUserModal = (props) => {
-    const [fullName, setFullName] = useState("hello")
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const [id, setID] = useState("")
+    const [fullName, setFullName] = useState("")
     const [phone, setPhone] = useState("")
-    const [isModalOpen, setIsModalOpen] = useState(false)
-    const { loadUser } = props
+    const { isModalUpdateOpen, setIsModalUpdateOpen, dataUpdate, setDataUpdate, loadUser } = props
+    useEffect(() => {
+        if (dataUpdate) {
+            setID(dataUpdate._id)
+            setFullName(dataUpdate.fullName)
+            setPhone(dataUpdate.phone)
+        }
+    }, [dataUpdate])
     const handleSubmitBtn = async () => {
-        const result = await createUser(fullName, email, password, phone)
+        const result = await updateUserAPI(id, fullName, phone)
 
         if (result.data) {
             notification.success({
-                message: "Create user",
-                description: "Tạo user thành công"
+                message: "Update user",
+                description: "Cập nhật thành công"
             })
             ClearData()
-            // await loadUser()
+            loadUser()
         }
 
         else if (result.error) {
@@ -27,19 +34,20 @@ const UpdateUserModal = (props) => {
         }
 
     }
+
     const ClearData = () => {
-        setIsModalOpen(false)
+        setIsModalUpdateOpen(false)
+        setID("")
         setFullName("")
-        setEmail("")
-        setPassword("")
         setPhone("")
+        setDataUpdate(null)
     }
     return (
         <>
             <Modal
                 title="Update User"
                 closable={{ 'aria-label': 'Custom Close Button' }}
-                open={isModalOpen}
+                open={isModalUpdateOpen}
                 onOk={() => { handleSubmitBtn() }}
                 onCancel={() => { ClearData() }}
                 maskClosable={false}
@@ -47,26 +55,20 @@ const UpdateUserModal = (props) => {
             > <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
 
                     <div>
-                        <span>Full name</span>
+                        <span>ID</span>
+                        <Input
+                            value={id}
+                            disabled
+                        />
+                    </div>
+                    <div>
+                        <span>Full Name</span>
                         <Input
                             value={fullName}
                             onChange={(event) => { setFullName(event.target.value) }}
                         />
                     </div>
-                    <div>
-                        <span>Email</span>
-                        <Input
-                            value={email}
-                            onChange={(event) => { setEmail(event.target.value) }}
-                        />
-                    </div>
-                    <div>
-                        <span>Password</span>
-                        <Input.Password
-                            value={password}
-                            onChange={(event) => { setPassword(event.target.value) }}
-                        />
-                    </div>
+
                     <div>
                         <span>Phone number</span>
                         <Input
