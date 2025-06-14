@@ -1,3 +1,4 @@
+import { data } from "react-router-dom"
 import axios from "./axios.customize"
 const createUser = (fullName, email, password, phone) => {
     const URL_Backend = "/api/v1/user"
@@ -15,8 +16,8 @@ const updateUserAPI = (_id, fullName, phone) => {
     }
     return axios.put(URL_Backend, data)
 }
-const getAllUserAPI = () => {
-    const URL_Backend = "/api/v1/user"
+const getAllUserAPI = (current,pageSize) => {
+    const URL_Backend =`/api/v1/user?current=${current}&pageSize=${pageSize}`
     return axios.get(URL_Backend)
 }
 const deleteUserAPI = (_id) => {
@@ -24,9 +25,35 @@ const deleteUserAPI = (_id) => {
 
     return axios.delete(URL_Backend)
 }
+const handleUploadFile = (file, folder) => {
+    const URL_Backend = "/api/v1/file/upload"
+    let configs = {
+        headers: {
+            "upload-type": folder,
+            "Content-Type": "multipart/form-data"
+        }
+    }
+    const data = new FormData()
+    data.append("fileImg", file)
+    return axios.post(URL_Backend, data, configs)
+
+}
+const UpdateUserAvatar = (avatar, _id, fullName, phone) => {
+    const URL_Backend = "/api/v1/user"
+    const data = {
+        avatar,
+        _id,
+        fullName,
+        phone
+
+    }
+    return axios.put(URL_Backend, data)
+}
 export {
     createUser,
     updateUserAPI,
     getAllUserAPI,
-    deleteUserAPI
+    deleteUserAPI,
+    handleUploadFile,
+    UpdateUserAvatar
 }
