@@ -16,8 +16,8 @@ const updateUserAPI = (_id, fullName, phone) => {
     }
     return axios.put(URL_Backend, data)
 }
-const getAllUserAPI = (current,pageSize) => {
-    const URL_Backend =`/api/v1/user?current=${current}&pageSize=${pageSize}`
+const getAllUserAPI = (current, pageSize) => {
+    const URL_Backend = `/api/v1/user?current=${current}&pageSize=${pageSize}`
     return axios.get(URL_Backend)
 }
 const deleteUserAPI = (_id) => {
@@ -49,11 +49,19 @@ const UpdateUserAvatar = (avatar, _id, fullName, phone) => {
     }
     return axios.put(URL_Backend, data)
 }
+const RegisterAPI = (fullName, email, password, phone) => {
+    const URL_Backend = "/api/v1/user/register"
+    const data = {
+        fullName, email, password, phone
+    }
+    return axios.post(URL_Backend, data)
+}
 export {
     createUser,
     updateUserAPI,
     getAllUserAPI,
     deleteUserAPI,
     handleUploadFile,
-    UpdateUserAvatar
+    UpdateUserAvatar,
+    RegisterAPI
 }

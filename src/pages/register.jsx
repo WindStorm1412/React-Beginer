@@ -1,9 +1,25 @@
-import { Button, Form, Input } from "antd"
+import { Button, Form, Input, notification } from "antd"
+import { RegisterAPI } from "../services/api.services";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
     const [form] = Form.useForm();
-    const onFinish = (values) => {
+    const navigate = useNavigate();
+    const onFinish = async (values) => {
         console.log('Success:', values);
+        const res = await RegisterAPI(values.fullName, values.email, values.password, values.phone);
+        if (res.data) {
+            notification.success({
+                message: "Register Success",
+                description: "Đang ký thành công, vui lòng đăng nhập để tiếp tục",
+            })
+            navigate("/login");
+        } else {
+            notification.error({
+                message: "Register Failed",
+                description: res.message || "Đăng ký thất bại, vui lòng thử lại sau",
+            })
+        }
     };
     return (
         <>
@@ -32,14 +48,24 @@ const RegisterPage = () => {
                     <Form.Item
                         label="Password"
                         name="password"
-                        rules={[{ required: true, message: 'Please input your username!' }]}
+                        rules={[
+                            { required: true, message: 'Please input your username!' },
+
+
+                        ]}
                     >
                         <Input.Password />
                     </Form.Item>
                     <Form.Item
                         label="Phone Number"
                         name="phone"
-                        rules={[{ required: true, message: 'Please input your username!' }]}
+                        rules={[
+                            {
+                                required: true,
+                                pattern: new RegExp(/\d+/g),
+                                message: "Wrong format!"
+                            }
+                        ]}
                     >
                         <Input />
                     </Form.Item>
