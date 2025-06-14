@@ -10,7 +10,7 @@ const UsersPage = () => {
     const [total, setTotal] = useState(0)
     useEffect(() => {
         loadUser()
-    }, [])
+    }, [currentPage, pageSize])
     const loadUser = async () => {
         const result = await getAllUserAPI(currentPage, pageSize)
         if (result.data) {

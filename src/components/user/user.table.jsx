@@ -14,8 +14,22 @@ const UserTable = (props) => {
     const onChangePagination = async (pagination, filters, sorter, extra) => {
         // console.log('params', pagination, filters, sorter, extra);
         // console.log('params', pagination);
-        setCurrentPage(pagination.current)
-        setPageSize(pagination.pageSize)
+        if (pagination && pagination.current) {
+            if (pagination.current !== +currentPage) {
+                setCurrentPage(+pagination.current)
+                // setPageSize(+pagination.pageSize)
+
+            }
+        }
+        if (pagination && pagination.pageSize) {
+            if (pagination.pageSize !== +pageSize) {
+                setPageSize(+pagination.pageSize)
+                // setPageSize(+pagination.pageSize)
+
+            }
+        }
+
+
         // await loadUser()
     }
 
@@ -39,6 +53,14 @@ const UserTable = (props) => {
         }
     }
     const columns = [
+        {
+            title: 'STT',
+            render: (text, record, index) => {
+                return (
+                    <span>{(currentPage - 1) * pageSize + index + 1}</span>
+                )
+            }
+        },
         {
             title: 'ID',
             dataIndex: '_id',
@@ -114,7 +136,7 @@ const UserTable = (props) => {
     //         tags: ['cool', 'teacher'],
     //     },
     // ];
-
+    console.log("check", currentPage)
     return (
         <>
             <Table
