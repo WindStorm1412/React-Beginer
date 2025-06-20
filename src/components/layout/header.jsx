@@ -2,7 +2,7 @@ import { Link, NavLink } from "react-router-dom"
 // import "../layout/header.css"
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
-import { useState } from "react";
+import { Children, useState } from "react";
 const HeaderPage = () => {
     const [current, setCurrent] = useState('mail');
     const onClick = e => {
@@ -27,8 +27,23 @@ const HeaderPage = () => {
             icon: <SettingOutlined />,
 
         },
+        {
+            label: <Link to={"/books"}>Books</Link>,
+            key: 'settings',
+            icon: <SettingOutlined />,
+            children: [
+                {
+                    type: 'group',
 
-    ];
+                    children: [
+                        { label: <Link to={"/login"}> Login</Link>, key: 'login' },
+                        { label: <Link to={"/register"}> Register</Link>, key: 'logout' },
+                    ],
+                },
+            ]
+        }
+    ]
+
     return (
 
         <>
