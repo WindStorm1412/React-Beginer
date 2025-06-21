@@ -136,7 +136,6 @@ const UserTable = (props) => {
     //         tags: ['cool', 'teacher'],
     //     },
     // ];
-    console.log("check", currentPage)
     return (
         <>
             <Table

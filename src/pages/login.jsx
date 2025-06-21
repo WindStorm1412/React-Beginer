@@ -11,6 +11,12 @@ const LoginPage = () => {
     const nagivate = useNavigate();
     const [loading, setLoading] = useState(false);
     const { setUser } = useContext(AuthContext);
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+            form.submit();
+        }
+    }
+
     const handleLogin = async (values) => {
         const res = await LoginAPI(values.email, values.password)
         setLoading(true);
@@ -20,7 +26,7 @@ const LoginPage = () => {
                 message: "Login Successful",
                 description: "Welcome back!",
             })
-            localStorage.setItem("access_token", res.data.token);
+            localStorage.setItem("access_token", res.data.access_token);
             setUser(res.data.user);
 
             nagivate("/users");
@@ -40,7 +46,6 @@ const LoginPage = () => {
                     style={{ gap: "10px", marginTop: "50px" }}
                     form={form}
                     onFinish={(values) => { handleLogin(values) }}
-
                 >
                     <Row justify={"center"}>
                         <Col xs={24} md={14}>
@@ -60,7 +65,7 @@ const LoginPage = () => {
                                 name="password"
                                 rules={[{ required: true, message: 'Please input your username!' }]}
                             >
-                                <Input />
+                                <Input.Password onKeyDown={(e) => { handleKeyDown(e) }} />
                             </Form.Item>
                         </Col>
                     </Row>

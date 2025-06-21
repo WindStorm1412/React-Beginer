@@ -64,6 +64,11 @@ const LoginAPI = (username, password) => {
     }
     return axios.post(URL_Backend, data)
 }
+const getAccountAPI = () => {
+    const URL_Backend = "/api/v1/auth/account"
+
+    return axios.get(URL_Backend)
+}
 export {
     createUser,
     updateUserAPI,
@@ -72,5 +77,6 @@ export {
     handleUploadFile,
     UpdateUserAvatar,
     RegisterAPI,
-    LoginAPI
+    LoginAPI,
+    getAccountAPI
 }
