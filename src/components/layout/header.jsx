@@ -1,8 +1,8 @@
 import { Link, NavLink } from "react-router-dom"
 // import "../layout/header.css"
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
+import { AliwangwangOutlined, AppstoreOutlined, LoginOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
-import { Children, useContext, useState } from "react";
+import { Children, use, useContext, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 const HeaderPage = () => {
     const [current, setCurrent] = useState('mail');
@@ -29,21 +29,25 @@ const HeaderPage = () => {
             icon: <SettingOutlined />,
 
         },
-        {
-            label: <Link to={"/books"}>Books</Link>,
-            key: 'settings',
-            icon: <SettingOutlined />,
+        ...(!user.id ? [{
+            label: <Link to={"/login"}>Đăng Nhập</Link>,
+            key: 'login',
+            icon: <LoginOutlined />,
+
+        },] : [{
+            label: `${user.fullName}`,
+            key: 'setting',
+            icon: <AliwangwangOutlined />,
             children: [
                 {
-                    type: 'group',
-
-                    children: [
-                        { label: <Link to={"/login"}> Login</Link>, key: 'login' },
-                        { label: <Link to={"/register"}> Register</Link>, key: 'logout' },
-                    ],
-                },
+                    label: "Đăng xuất",
+                    key: 'logout',
+                }
             ]
-        }
+        },]),
+
+
+
     ]
 
     return (

@@ -20,6 +20,7 @@ export const AuthWrapper = (props) => {
     return (
         <AuthContext.Provider value={{ user, setUser }}>
             {props.children}
+            
         </AuthContext.Provider>
     )
 }
