@@ -3,12 +3,14 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginAPI } from "../services/api.services";
 import { ArrowRightOutlined } from "@ant-design/icons";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../components/context/auth.context";
 
 const LoginPage = () => {
     const [form] = Form.useForm();
     const nagivate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const { setUser } = useContext(AuthContext);
     const handleLogin = async (values) => {
         const res = await LoginAPI(values.email, values.password)
         setLoading(true);
@@ -18,6 +20,8 @@ const LoginPage = () => {
                 message: "Login Successful",
                 description: "Welcome back!",
             })
+            localStorage.setItem("access_token", res.data.token);
+            setUser(res.data.user);
 
             nagivate("/users");
         } else {
