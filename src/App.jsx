@@ -5,9 +5,10 @@ import { Outlet } from "react-router-dom"
 import { getAccountAPI } from './services/api.services'
 import { useContext, useEffect } from 'react'
 import { AuthContext } from './components/context/auth.context'
+import { Spin } from 'antd'
 
 const App = () => {
-  const { setUser } = useContext(AuthContext);
+  const { user, setUser, AppisLoading, setAppisLoading } = useContext(AuthContext);
   useEffect(() => {
     fetchUserInfo()
   }, [])
@@ -23,15 +24,24 @@ const App = () => {
         role: res.data.user.role
       })
     }
-
+    setAppisLoading(false)
   }
 
 
   return (
     <>
-      <HeaderPage />
-      <Outlet />
-      <Footer />
+      {AppisLoading === true ?
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+          <Spin />
+        </div> :
+        <>
+          <HeaderPage />
+          <Outlet />
+          <Footer />
+        </>
+      }
+
+
 
     </>
 
