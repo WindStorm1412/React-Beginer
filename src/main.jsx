@@ -34,8 +34,6 @@ let router = createBrowserRouter([
           <PrivateRoute>
             <BookPage />
           </PrivateRoute>)
-
-
       }
     ]
   },

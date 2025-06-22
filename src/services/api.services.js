@@ -69,6 +69,10 @@ const getAccountAPI = () => {
 
     return axios.get(URL_Backend)
 }
+const LogOutAPI = () => {
+    const URL_Backend = "/api/v1/auth/logout"
+    return axios.post(URL_Backend)
+}
 export {
     createUser,
     updateUserAPI,
@@ -78,5 +82,6 @@ export {
     UpdateUserAvatar,
     RegisterAPI,
     LoginAPI,
-    getAccountAPI
+    getAccountAPI,
+    LogOutAPI
 }
